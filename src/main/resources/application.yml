@@ -18,7 +18,7 @@ spring: #띄어쓰기 없음
       hibernate:
       show_sql: true
       format_sql: true
-    open-in-view: false
+    #open-in-view: false
 
 
 logging.level:
