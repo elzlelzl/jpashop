@@ -10,8 +10,10 @@ import com.example.jpashop.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -20,18 +22,23 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final ItemService itemService;
+
     @GetMapping(value = "/order")
     public String createForm(Model model) {
         List<Member> members = memberService.findMembers();
         List<Item> items = itemService.findItems();
         model.addAttribute("members", members);
         model.addAttribute("items", items);
+        model.addAttribute("orderForm", new OrderForm());
         return "order/orderForm";
+
     }
     @PostMapping(value = "/order")
-    public String order(@RequestParam("memberId") Long memberId,
-                        @RequestParam("itemId") Long itemId, @RequestParam("count") int count) {
-        orderService.order(memberId, itemId, count);
+    public String order(@Valid OrderForm orderForm, BindingResult result) {
+        if(result.hasErrors()){
+            return "order/orderForm";
+        }
+        orderService.order(orderForm);
         return "redirect:/orders";
     }
 

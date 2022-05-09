@@ -8,6 +8,7 @@ import com.example.jpashop.domain.item.Book;
 import com.example.jpashop.domain.item.Item;
 import com.example.jpashop.repository.OrderRepository;
 import com.example.jpashop.service.OrderService;
+import com.example.jpashop.web.OrderForm;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,12 +36,12 @@ public class OrderServiceTest {
     @Test
     public void 상품주문() throws Exception {
 //Given
-        Member member = createMember();
+        Member member = createMember("name", new Address("city", "street", "zipcode"));
         Item item = createBook("시골 JPA", 10000, 10); //이름, 가격, 재고
+
         int orderCount = 2;
 //When
-        Long orderId = orderService.order(member.getId(), item.getId(),
-                orderCount);
+        Long orderId = orderService.order(new OrderForm());
 //Then
         Order getOrder = orderRepository.findOne(orderId);
         assertEquals(OrderStatus.ORDER, getOrder.getStatus()); //"상품 주문시 상태는 ORDER",
@@ -48,6 +49,7 @@ public class OrderServiceTest {
         assertEquals(10000 * 2, getOrder.getTotalPrice());   //"주문 가격은 가격 * 수량이다.",
         assertEquals(8, item.getStockQuantity());   //"주문 수량만큼 재고가 줄어야 한다.",
     }
+
 
     private Member createMember(String name, Address address) {
         Member member = new Member();
@@ -69,11 +71,11 @@ public class OrderServiceTest {
     @Test
     public void 상품주문_재고수량초과() throws Exception{
         //Given
-        Member member = createMember();
+        Member member = createMember("name", new Address("city", "street", "zipcode"));
         Item item = createBook("시골 JPA", 10000, 10); //이름, 가격, 재고
         int orderCount = 11; //재고보다 많은 수량
         //When
-        orderService.order(member.getId(), item.getId(), orderCount);
+        orderService.order(new OrderForm());
         //Then
         IllegalStateException thrown = Assertions
                 .assertThrows(IllegalStateException.class, () -> {        });
@@ -83,10 +85,10 @@ public class OrderServiceTest {
     @Test
     public void 주문취소() {
         //Given
-        Member member = createMember();
+        Member member = createMember("name", new Address("city", "street", "zipcode"));
         Item item = createBook("시골 JPA", 10000, 10); //이름, 가격, 재고
         int orderCount = 2;
-        Long orderId = orderService.order(member.getId(), item.getId(),orderCount);
+        Long orderId = orderService.order(new OrderForm());
         //When
         orderService.cancelOrder(orderId);
         //Then

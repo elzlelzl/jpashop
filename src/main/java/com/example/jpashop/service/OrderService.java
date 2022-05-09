@@ -5,6 +5,7 @@ import com.example.jpashop.domain.item.Item;
 import com.example.jpashop.repository.ItemRepository;
 import com.example.jpashop.repository.MemberRepository;
 import com.example.jpashop.repository.OrderRepository;
+import com.example.jpashop.web.OrderForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,16 +22,16 @@ public class OrderService {
 
     /** 주문 */
     @Transactional
-    public Long order(Long memberId, Long itemId, int count) {
+    public Long order(OrderForm ordereForm) {
         //엔티티 조회
-        Member member = memberRepository.findOne(memberId);
-        Item item = itemRepository.findOne(itemId);
+        Member member = memberRepository.findOne(ordereForm.getMemberId());
+        Item item = itemRepository.findOne(ordereForm.getItemId());
         //배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
         delivery.setStatus(DeliveryStatus.READY);
         //주문상품 생성
-        OrderItem orderItem = OrderItem. createOrderItem (item, item.getPrice(), count);
+        OrderItem orderItem = OrderItem. createOrderItem (item, item.getPrice(), ordereForm.getCount());
         //주문 생성
         Order order = Order.createOrder(member, delivery, orderItem);
         //주문 저장

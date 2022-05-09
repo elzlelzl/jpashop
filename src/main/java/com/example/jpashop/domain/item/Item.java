@@ -16,7 +16,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "dtype")
 public abstract class Item {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "item_id")
     private Long id;
 
@@ -38,5 +38,4 @@ public abstract class Item {
         }
         this.stockQuantity = restStock;
     }
-
 }

@@ -1,0 +1,88 @@
+.modals{
+    background-color: rgba(0,0,0,.3);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    outline: 0;
+    display: block;
+    /* display: none; */
+    /* justify-content:center; //수평 중앙정렬
+  align-items:center;     //수직 중앙정렬 */
+}
+.modals > div{
+    max-width:500px;
+    height: 100%;
+    margin: 1.75rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modals > div > div{
+    position: relative;
+    width:100%;
+    background-color:#fff;
+    padding: 30px;
+}
+.modals > div > div > div{
+    width:100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.modals > div > div > div > h2{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.modals > div > div > div> img{
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+.modals > div > div > div> span{
+    display: inline-block;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.5em;
+    color: #666666;
+    text-align: center;
+}
+.modals > div > div > .modal-close{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    max-width: 100%;
+    cursor: pointer;
+}
+.modals.fade > div > div > div > a{
+    margin-top: 20px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    padding: 0 40px;
+    color: #Fff;
+    background-color: #000000;
+    text-decoration-line: none;
+}
+.modals.fade > div > div > div > .modal-btn{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.modals.fade > div > div > div > .modal-btn > a:first-child{
+    border: 1px solid #cccccc;
+    color: #000000;
+    margin-right: 8px;
+}
+.modals.fade > div > div > div > .modal-btn > a:last-child{
+    background-color: #000;
+    color: #fff;
+}
+.modals.fade > div > div > div > .modal-btn > a{
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration-line: none;
+}
