@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter @Setter
 public class BookForm {
@@ -12,10 +13,10 @@ public class BookForm {
     @NotEmpty(message = "우편번호는 필수 입니다")
     private String name;
 
-    @NotEmpty(message = "우편번호는 필수 입니다")
+    @NotNull(message = "우편번호는 필수 입니다")
     private int price;
 
-    @NotEmpty(message = "우편번호는 필수 입니다")
+    @NotNull(message = "우편번호는 필수 입니다")
     private int stockQuantity;
 
     @NotEmpty(message = "우편번호는 필수 입니다")

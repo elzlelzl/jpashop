@@ -53,7 +53,7 @@ public class MemberController {
         List<Member> member = memberService.memberIdTest(loginForm);
         System.out.println(member);
 
-        if(member == null){
+        if(member.size()==0){
             return "login";
         }
         session.setAttribute("sv", member);
