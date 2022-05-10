@@ -29,7 +29,8 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
-    public List<Member> memberIdTest(LoginForm loginForm){
+    public Member memberIdTest(LoginForm loginForm){
+        System.out.println("service");
         return memberRepository.loginByMember(loginForm);
     }
 

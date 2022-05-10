@@ -31,12 +31,17 @@ public class MemberRepository {
                 Member.class).setParameter("name", name).getResultList();
     }
 
-    public List<Member> loginByMember(LoginForm loginForm) {
-        TypedQuery<Member> query = em.createQuery("select m from Member m " +
-                        "where m.name = :name and  m.pwd = :pwd", Member.class);
-        query.setParameter("name", loginForm.getName());
-        query.setParameter("pwd", loginForm.getPwd());
-        return  query.getResultList();
+    public Member loginByMember(LoginForm loginForm) {
+        try {
+            TypedQuery<Member> query = em.createQuery("select m from Member m " +
+                    "where m.name = :name and  m.pwd = :pwd", Member.class);
+            query.setParameter("name", loginForm.getName());
+            query.setParameter("pwd", loginForm.getPwd());
+            System.out.println("Reposi"+query.getSingleResult());
+            return  query.getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
     }
 }
 

@@ -50,10 +50,10 @@ public class MemberController {
         }
         HttpSession session = httpServletRequest.getSession();
         session.setMaxInactiveInterval(10*360);
-        List<Member> member = memberService.memberIdTest(loginForm);
-        System.out.println(member);
+        Member member = memberService.memberIdTest(loginForm);
+        System.out.println("member");
 
-        if(member.size()==0){
+        if(member==null){
             return "login";
         }
         session.setAttribute("sv", member);

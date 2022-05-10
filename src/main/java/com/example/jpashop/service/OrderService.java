@@ -24,6 +24,7 @@ public class OrderService {
     @Transactional
     public Long order(OrderForm ordereForm) {
         //엔티티 조회
+        System.out.println("oderId : "+ordereForm.getMemberId());
         Member member = memberRepository.findOne(ordereForm.getMemberId());
         Item item = itemRepository.findOne(ordereForm.getItemId());
         //배송정보 생성

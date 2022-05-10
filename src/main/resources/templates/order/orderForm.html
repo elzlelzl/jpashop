@@ -5,49 +5,49 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script th:inline="javascript">
 
-  $(function (){
-    $('#btb-save').click(function (){
-      if($('#item').val()==""){
-        $("#modal-item").show();
-      }else if(count.value==''){
-        $("#modal-count").show();
-      }else if($('#item').text() < count.value() ){
-        $("modal-stock").show();
-      }
-    })
-  })
-  function modalOff(modal){
-    modal.hide();
-  }
+  // $(function (){
+  //   $('#btb-save').click(function (){
+  //     if($('#item').val()==""){
+  //       $("#modal-item").show();
+  //     }else if(count.value==''){
+  //       $("#modal-count").show();
+  //     }else if($('#item').text() < count.value() ){
+  //       $("modal-stock").show();
+  //     }
+  //   })
+  // })
+  // function modalOff(modal){
+  //   modal.hide();
+  // }
 
 </script>
 <body>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-  <form role="form" action="/order" th:object="/orderForm" method="post">
+  <form role="form" action="/order" th:object="${orderForm}" method="post">
     <div class="form-group">
       <label for="member">주문회원</label>
-      <select name="memberId" id="member" class="form-control">
-        <option value="">회원선택</option>
-        <option th:each="member : ${members}"
-                th:value="${member.id}"
-                th:text="${member.name}" />
-      </select>
+      <span name="memberId" id="member" class="form-control" th:value="${members.id}" th:text="${members.name}"> </span>
+<!--      <select name="memberId" id="member" class="form-control">-->
+<!--        <option value="">회원선택</option>-->
+<!--        <option th:value="${members.id}"-->
+<!--                th:text="${members.name}" />-->
+<!--      </select>-->
     </div>
     <div class="form-group">
       <label for="item">상품명</label>
       <select name="itemId" id="item" class="form-control">
-        <option th:value="">상품선택</option>
+        <option value="">상품선택</option>
         <option th:each="item : ${items}"
                 th:value="${item.id}"
-                th:text="${item.name} + ' 재고:'+ ${item.stockQuantity}+'개'"/>
+                th:text="${item.name}" />
       </select>
     </div>
     <div class="form-group">
-      <label th:for="count">주문수량</label>
-      <input type="number" th:field="count" class="form-control" id="count"
-             placeholder="주문 수량을 입력하세요"/>
-      </div>
+      <label for="count">주문수량</label>
+      <input type="number" name="count" class="form-control" id="count"
+             placeholder="주문 수량을 입력하세요">
+    </div>
     <button type="submit" class="btn btn-primary" id="btb-save">Submit</button>
   </form>
   <br/>
@@ -55,44 +55,44 @@
 </div> <!-- /container -->
 
 
-<div class="modals fade show" id="modal-stock" >
-  <div>
-    <div>
-      <div>
-        <img th:src="@{/img/img_1.png}">
-        <h2>알림</h2>
-        <span>재고가 부족합니다.</span>
-        <a href="#" class="btn-ok" onclick="modalOff($('#modal-stock'))">확인</a>
-      </div>
-      <img th:src="@{/img/img.png}" class="modal-close" onclick="modalOff($('#modal-stock'))">
-    </div>
-  </div>
-</div>
-<div class="modals fade show" id="modal-count" >
-  <div>
-    <div>
-      <div>
-        <img th:src="@{/img/img_1.png}">
-        <h2>알림</h2>
-        <span>수량을 적어주세요.</span>
-        <a href="#" class="btn-ok" onclick="modalOff($('#modal-count'))">확인</a>
-      </div>
-      <img th:src="@{/img/img.png}" class="modal-close" onclick="modalOff($('#modal-count'))">
-    </div>
-  </div>
-</div>
-<div class="modals fade show" id="modal-item" >
-  <div>
-    <div>
-      <div>
-        <img th:src="@{/img/img_1.png}">
-        <h2>알림</h2>
-        <span>제품을 선택해 주세요.</span>
-        <a href="#" class="btn-ok" onclick="modalOff($('#modal-item'))">확인</a>
-      </div>
-      <img th:src="@{/img/img.png}" class="modal-close" onclick="modalOff($('#modal-item'))">
-    </div>
-  </div>
-</div>
+<!--<div class="modals fade show" id="modal-stock" >-->
+<!--  <div>-->
+<!--    <div>-->
+<!--      <div>-->
+<!--        <img th:src="@{/img/img_1.png}">-->
+<!--        <h2>알림</h2>-->
+<!--        <span>재고가 부족합니다.</span>-->
+<!--        <a href="#" class="btn-ok" onclick="modalOff($('#modal-stock'))">확인</a>-->
+<!--      </div>-->
+<!--      <img th:src="@{/img/img.png}" class="modal-close" onclick="modalOff($('#modal-stock'))">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="modals fade show" id="modal-count" >-->
+<!--  <div>-->
+<!--    <div>-->
+<!--      <div>-->
+<!--        <img th:src="@{/img/img_1.png}">-->
+<!--        <h2>알림</h2>-->
+<!--        <span>수량을 적어주세요.</span>-->
+<!--        <a href="#" class="btn-ok" onclick="modalOff($('#modal-count'))">확인</a>-->
+<!--      </div>-->
+<!--      <img th:src="@{/img/img.png}" class="modal-close" onclick="modalOff($('#modal-count'))">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="modals fade show" id="modal-item" >-->
+<!--  <div>-->
+<!--    <div>-->
+<!--      <div>-->
+<!--        <img th:src="@{/img/img_1.png}">-->
+<!--        <h2>알림</h2>-->
+<!--        <span>제품을 선택해 주세요.</span>-->
+<!--        <a href="#" class="btn-ok" onclick="modalOff($('#modal-item'))">확인</a>-->
+<!--      </div>-->
+<!--      <img th:src="@{/img/img.png}" class="modal-close" onclick="modalOff($('#modal-item'))">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 </body>
 </html>
