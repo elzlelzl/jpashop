@@ -15,10 +15,14 @@ public class ItemRepository {
     private final EntityManager em;
 
     public void save(Item item) {
-        if (item.getId() == null) {
-            em.persist(item);
-        } else {
-            em.merge(item);
+        try{
+            if (item.getId() == null) {
+                em.persist(item);
+            } else {
+                em.merge(item);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     public Item findOne(Long id) {

@@ -24,10 +24,12 @@
 <body>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-  <form role="form" action="/order" th:object="${orderForm}" method="post">
-    <div class="form-group">
+  <form role="form" action="/order"  method="post">
+    <div class="form-group" style="display: none">
       <label for="member">주문회원</label>
-      <span name="memberId" id="member" class="form-control" th:value="${members.id}" th:text="${members.name}"> </span>
+      <input type="text" name="memberId" id="member" class="form-control" th:value="${members.id}">
+      <span th:text="${members.name}" ></span>
+
 <!--      <select name="memberId" id="member" class="form-control">-->
 <!--        <option value="">회원선택</option>-->
 <!--        <option th:value="${members.id}"-->

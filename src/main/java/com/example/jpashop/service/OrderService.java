@@ -22,17 +22,17 @@ public class OrderService {
 
     /** 주문 */
     @Transactional
-    public Long order(OrderForm ordereForm) {
+    public Long order(Long memberId, Long itemId, int count) {
         //엔티티 조회
-        System.out.println("oderId : "+ordereForm.getMemberId());
-        Member member = memberRepository.findOne(ordereForm.getMemberId());
-        Item item = itemRepository.findOne(ordereForm.getItemId());
+        System.out.println("oderId : " + memberId);
+        Member member = memberRepository.findOne(memberId);
+        Item item = itemRepository.findOne(itemId);
         //배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
         delivery.setStatus(DeliveryStatus.READY);
         //주문상품 생성
-        OrderItem orderItem = OrderItem. createOrderItem (item, item.getPrice(), ordereForm.getCount());
+        OrderItem orderItem = OrderItem. createOrderItem (item, item.getPrice(), count);
         //주문 생성
         Order order = Order.createOrder(member, delivery, orderItem);
         //주문 저장

@@ -36,7 +36,7 @@ public class MemberController {
         member.setPwd(form.getPwd());
         member.setAddress(address);
         memberService.join(member);
-        return "login";
+        return "redirect:/login";
     }
     @GetMapping(value = "/login")
     public String loginForm(Model model) {

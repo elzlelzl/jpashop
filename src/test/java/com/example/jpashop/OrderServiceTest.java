@@ -41,7 +41,7 @@ public class OrderServiceTest {
 
         int orderCount = 2;
 //When
-        Long orderId = orderService.order(new OrderForm());
+        Long orderId = orderService.order(member.getId(), item.getId(), orderCount);
 //Then
         Order getOrder = orderRepository.findOne(orderId);
         assertEquals(OrderStatus.ORDER, getOrder.getStatus()); //"상품 주문시 상태는 ORDER",
@@ -75,7 +75,7 @@ public class OrderServiceTest {
         Item item = createBook("시골 JPA", 10000, 10); //이름, 가격, 재고
         int orderCount = 11; //재고보다 많은 수량
         //When
-        orderService.order(new OrderForm());
+        orderService.order(member.getId(), item.getId(), orderCount);
         //Then
         IllegalStateException thrown = Assertions
                 .assertThrows(IllegalStateException.class, () -> {        });
@@ -88,7 +88,7 @@ public class OrderServiceTest {
         Member member = createMember("name", new Address("city", "street", "zipcode"));
         Item item = createBook("시골 JPA", 10000, 10); //이름, 가격, 재고
         int orderCount = 2;
-        Long orderId = orderService.order(new OrderForm());
+        Long orderId = orderService.order(member.getId(), item.getId(), orderCount);
         //When
         orderService.cancelOrder(orderId);
         //Then
