@@ -2,6 +2,7 @@ package com.example.jpashop.service;
 
 import com.example.jpashop.domain.Member;
 import com.example.jpashop.repository.MemberRepository;
+import com.example.jpashop.web.LoginForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,9 @@ public class MemberService {
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+    }
+    public List<Member> memberIdTest(LoginForm loginForm){
+        return memberRepository.loginByMember(loginForm);
     }
 
     // 전체 회원 조회

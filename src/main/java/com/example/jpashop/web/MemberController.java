@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -31,10 +33,40 @@ public class MemberController {
         Address address = new Address(form.getCity(), form.getStreet(),form.getZipcode());
         Member member = new Member();
         member.setName(form.getName());
+        member.setPwd(form.getPwd());
         member.setAddress(address);
         memberService.join(member);
-        return "redirect:/";
+        return "login";
     }
+    @GetMapping(value = "/login")
+    public String loginForm(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        return "login";
+    }
+    @PostMapping(value = "/login")
+    public String login(@Valid LoginForm loginForm, BindingResult result, HttpServletRequest httpServletRequest) {
+        if(result.hasErrors()){
+            return "login";
+        }
+        HttpSession session = httpServletRequest.getSession();
+        session.setMaxInactiveInterval(10*360);
+        List<Member> member = memberService.memberIdTest(loginForm);
+        System.out.println(member);
+
+        if(member == null){
+            return "login";
+        }
+        session.setAttribute("sv", member);
+        System.out.println(session.getId());
+        return "redirect:/home";
+    }
+    @GetMapping(value = "/logout")
+    public String logout(HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession();
+        session.invalidate();
+        return "redirect:/login";
+    }
+
     @GetMapping(value = "/members")
     public String list(Model model) {
         List<Member> members = memberService.findMembers();

@@ -3,7 +3,6 @@ package com.example.jpashop.web;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -16,6 +15,6 @@ public class OrderForm {
     @NotNull(message = "test")
     private Long itemId;
 
-    @NegativeOrZero(message = "test")
+    @NotNull(message = "test")
     private int count;
 }
