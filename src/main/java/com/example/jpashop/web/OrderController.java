@@ -10,12 +10,10 @@ import com.example.jpashop.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -42,10 +40,17 @@ public class OrderController {
     }
     @PostMapping(value = "/order")
     public String order(@RequestParam("memberId") Long  memberId,
-                        @RequestParam("itemId") Long itemId, @RequestParam("count") int count) {
-        System.out.printf("memberid asd"+memberId);
-        orderService.order(memberId, itemId, count);
-        return "redirect:/orders";
+                        @RequestParam("itemId") Long itemId, @RequestParam("count") int count, Model model) {
+        System.out.println("memberid asd"+memberId);
+
+        boolean b = orderService.order(memberId, itemId, count);
+        if(b){
+            model.addAttribute("orderResult","주문에 성공하였습니다.");
+            return "orderResult";
+        }else {
+            model.addAttribute("orderResult","주문에 실패하였습니다.");
+            return "orderResult";
+        }
     }
 
     @GetMapping(value = "/orders")

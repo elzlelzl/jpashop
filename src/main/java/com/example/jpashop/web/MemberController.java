@@ -26,7 +26,8 @@ public class MemberController {
         return "members/createMemberForm";
     }
     @PostMapping(value = "/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String create(@Valid MemberForm form, BindingResult result, Model model
+    ) {
         if (result.hasErrors()) {
             return "members/createMemberForm";
         }
@@ -35,8 +36,14 @@ public class MemberController {
         member.setName(form.getName());
         member.setPwd(form.getPwd());
         member.setAddress(address);
-        memberService.join(member);
-        return "redirect:/login";
+        String membername = memberService.join(member);
+        if(membername!=null){
+            String resultText = membername+"님 환영합니다.";
+            model.addAttribute("result", resultText);
+        }else {
+            model.addAttribute("result", "회원가입에 실패 하였습니다.");
+        }
+        return "result";
     }
     @GetMapping(value = "/login")
     public String loginForm(Model model) {
@@ -73,4 +80,6 @@ public class MemberController {
         model.addAttribute("members", members);
         return "members/memberList";
     }
+
+
 }

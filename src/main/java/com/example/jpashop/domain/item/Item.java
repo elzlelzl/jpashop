@@ -28,6 +28,7 @@ public abstract class Item {
     private List<Category> categories = new ArrayList<Category>();
     //==비즈니스 로직==//
     public void addStock(int quantity) {
+
         this.stockQuantity += quantity;
     }
 
@@ -35,6 +36,7 @@ public abstract class Item {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
             throw new NotEnoughStockException("need more stock");
+
         }
         this.stockQuantity = restStock;
     }

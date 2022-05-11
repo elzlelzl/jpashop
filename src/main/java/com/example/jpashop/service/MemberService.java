@@ -14,19 +14,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    boolean result = false;
 
     //회원가입
     @Transactional //변경
-    public Long join(Member member) {
-        validateDuplicateMember(member); //중복 회원 검증
-        memberRepository.save(member);
-        return member.getId();
+    public String join(Member member) {
+        validateDuplicateMember(member);
+        //중복 회원 검증
+        if(this.result){
+            memberRepository.save(member);
+            return member.getName();
+        }else {
+            return null;
+        }
     }
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers =
                 memberRepository.findByName(member.getName());
         if (!findMembers.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+            this.result = false;
+        }else {
+            this.result = true;
         }
     }
     public Member memberIdTest(LoginForm loginForm){
