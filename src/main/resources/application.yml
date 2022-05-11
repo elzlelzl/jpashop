@@ -5,7 +5,7 @@ spring: #띄어쓰기 없음
     cache: false
 
   datasource: #띄어쓰기 2칸
-    url: jdbc:h2:tcp://localhost/~/jpashop #4칸
+    url: jdbc:h2:tcp://localhost/~/test #4칸
     #url: jdbc:h2:mem:testdb
     username: sa
     password:
@@ -13,7 +13,7 @@ spring: #띄어쓰기 없음
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
       show_sql: true
